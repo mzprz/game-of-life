@@ -6,6 +6,7 @@ import copy
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+GRAY = (127,127,127)
 WINDOW_SIZE = 600
 WINDOW_HEIGHT = WINDOW_SIZE
 WINDOW_WIDTH = WINDOW_SIZE
@@ -35,7 +36,7 @@ def main():
         row = []
         for x in range(WINDOW_WIDTH):
             row.append(pygame.Rect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
-            pygame.draw.rect(SCREEN, BLACK, row[x], 1)
+            pygame.draw.rect(SCREEN, GRAY, row[x], 1)
         rects.append(row)
 
     clicking = 0
@@ -83,6 +84,18 @@ def main():
                     saved_state = copy.copy(grid)
                     # print(saved_state)
                     # print("NOT CLICK")
+                if event.type == pygame.KEYDOWN:
+                    if event.key == (pygame.K_LCTRL or pygame.K_RCTRL) :
+                        grid = copy.deepcopy(null_state)
+                        for y in range(len(grid)):
+                            for x in range(len(grid[y])):
+                                if grid[y][x] == 1:
+                                    color = BLACK
+                                else:
+                                    color = WHITE
+                                pygame.draw.rect(SCREEN, color, (x * basicX+1, y * basicY+1, basicX-2, basicY-2))  # draw rectangle
+                        pygame.display.flip()  # update screen
+
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
@@ -155,7 +168,7 @@ def main():
                     pygame.draw.rect(SCREEN, color, (x * basicX+1, y * basicY+1, basicX-2, basicY-2))  # draw rectangle
 
             pygame.display.flip()  # update screen
-            time.sleep(.3)
+            time.sleep(.1)
             grid = copy.deepcopy(newgrid)
 
 
