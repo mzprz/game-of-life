@@ -88,8 +88,9 @@ def main():
                 if event.key == pygame.K_SPACE:
                     start = 1 - start
                     if start:
-                        print(grid[28][28])
-                        print("START")
+                        # print(grid[28][28])
+                        # print("START")
+                        pass
                     else:
                         grid = copy.copy(saved_state)
                         for y in range(len(grid)):
@@ -154,7 +155,7 @@ def main():
                     pygame.draw.rect(SCREEN, color, (x * basicX+1, y * basicY+1, basicX-2, basicY-2))  # draw rectangle
 
             pygame.display.flip()  # update screen
-            time.sleep(1)
+            time.sleep(.3)
             grid = copy.deepcopy(newgrid)
 
 
